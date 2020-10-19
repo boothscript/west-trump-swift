@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+
 import Quote from './Quote';
 import { getRandomQuote } from './fetchQuotes';
 // States
@@ -14,6 +15,7 @@ const {
   PROCESSING_ANSWER,
   REVEAL_ANSWER,
   GAME_OVER,
+  QUOTE_FAILED,
 } = states;
 
 const { TRUMP, SWIFT, WEST } = people;
@@ -84,11 +86,17 @@ function Game() {
     console.log(history);
     console.log('running use effect');
     if (state === LOADING_QUOTE) {
-      getRandomQuote().then((quote) => {
-        setNextQuote(quote);
-        console.log(quote);
-        setState(WAITING_FOR_ANSWER);
-      });
+      getRandomQuote()
+        .then((quote) => {
+          setNextQuote(quote);
+          console.log(quote);
+          setState(WAITING_FOR_ANSWER);
+        })
+        .catch(() => setState(QUOTE_FAILED));
+    }
+    if (state === QUOTE_FAILED) {
+      console.log('error');
+      throw new Error();
     }
     if (state === PROCESSING_ANSWER) {
       const historyCopy = history;
