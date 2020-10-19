@@ -1,0 +1,21 @@
+const IDLE = 'IDLE';
+const LOADING_QUOTE = 'LOADING_QUOTE';
+const WAITING_FOR_ANSWER = 'WAITING_FOR_ANSWER';
+const PROCESSING_ANSWER = 'PROCESSING_ANSWER';
+const REVEAL_ANSWER = 'REVEAL_ANSWER';
+const GAME_OVER = 'GAME_OVER';
+
+const TRUMP = 'TRUMP';
+const SWIFT = 'SWIFT';
+const WEST = 'WEST';
+
+export const states = {
+  IDLE,
+  LOADING_QUOTE,
+  WAITING_FOR_ANSWER,
+  PROCESSING_ANSWER,
+  REVEAL_ANSWER,
+  GAME_OVER,
+};
+
+export const people = { TRUMP, SWIFT, WEST };
