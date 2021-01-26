@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/west-trump-swift/static/js/main.fe57d75f.chunk.js",
+    "main.js.map": "/west-trump-swift/static/js/main.fe57d75f.chunk.js.map",
+    "runtime-main.js": "/west-trump-swift/static/js/runtime-main.2ab3e4cc.js",
+    "runtime-main.js.map": "/west-trump-swift/static/js/runtime-main.2ab3e4cc.js.map",
+    "static/js/2.fb4413ac.chunk.js": "/west-trump-swift/static/js/2.fb4413ac.chunk.js",
+    "static/js/2.fb4413ac.chunk.js.map": "/west-trump-swift/static/js/2.fb4413ac.chunk.js.map",
+    "index.html": "/west-trump-swift/index.html",
+    "precache-manifest.9ff9825004245a19234118a6bef36285.js": "/west-trump-swift/precache-manifest.9ff9825004245a19234118a6bef36285.js",
+    "service-worker.js": "/west-trump-swift/service-worker.js",
+    "static/js/2.fb4413ac.chunk.js.LICENSE.txt": "/west-trump-swift/static/js/2.fb4413ac.chunk.js.LICENSE.txt",
+    "static/media/swift.cac70a88.svg": "/west-trump-swift/static/media/swift.cac70a88.svg",
+    "static/media/trump.fd32fc38.svg": "/west-trump-swift/static/media/trump.fd32fc38.svg",
+    "static/media/west.a428f008.svg": "/west-trump-swift/static/media/west.a428f008.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2ab3e4cc.js",
+    "static/js/2.fb4413ac.chunk.js",
+    "static/js/main.fe57d75f.chunk.js"
+  ]
+}
