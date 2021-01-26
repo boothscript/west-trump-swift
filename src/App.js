@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Game from './Game';
+import { ErrorBoundary } from 'react-error-boundary';
+
+function QuoteErrorFallback({ error, resetErrorBoundary }) {
+  console.log('in error boundary');
+  return (
+    <div role="alert">
+      <p>Something went wrong, please refresh</p>
+    </div>
+  );
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ErrorBoundary FallbackComponent={QuoteErrorFallback}>
+        <Game />
+      </ErrorBoundary>
     </div>
   );
 }
