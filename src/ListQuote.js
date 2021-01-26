@@ -5,11 +5,10 @@ import { getImage } from './images';
 
 const ListQuoteWrapper = styled.div`
   display: flex;
-
-  align-items: flex-start;
+  margin-bottom: 1em;
+  align-items: center;
   p {
     margin-block-start: 0;
-    outline: 1px solid blue;
   }
 `;
 const ListQuoteImage = styled.div`
