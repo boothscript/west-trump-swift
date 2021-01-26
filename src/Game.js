@@ -6,7 +6,9 @@ import { getRandomQuote } from './fetchQuotes';
 // States
 import { states, people } from './enums';
 import Buttons from './Buttons';
+import ListQuote from './ListQuote';
 import useLocalStorageState from './hooks/useLocalStorageState';
+import { Container, Header, Main, Footer } from './layoutComponents';
 
 const {
   IDLE,
@@ -20,19 +22,12 @@ const {
 
 const { TRUMP, SWIFT, WEST } = people;
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr minmax(400px, 66vw) 1fr;
-`;
-
 const LargeTitle = styled.div`
   grid-column: 2 / span 1;
-  height: 33vh;
   font-size: 3em;
 `;
 const SmallTitle = styled.div`
   grid-column: 2 / span 1;
-
   font-size: 1.5em;
 `;
 const H1 = styled.h1`
@@ -91,6 +86,7 @@ function Game() {
     console.log(history);
     console.log('running use effect');
     if (state === LOADING_QUOTE) {
+      console.log('in loading state');
       getRandomQuote()
         .then((quote) => {
           setNextQuote(quote);
@@ -123,7 +119,7 @@ function Game() {
         } else {
           setState(GAME_OVER);
         }
-      }, 3000);
+      }, 1000);
       return () => {
         clearTimeout(timeout);
       };
@@ -145,78 +141,115 @@ function Game() {
     case IDLE:
       return (
         <Container>
-          <HighScore>
-            <p>High Score: {highScore}</p>
-          </HighScore>
-          <LargeTitle>
-            <H1>Trump, West or Swift?</H1>
-          </LargeTitle>
-          <StartButton>
-            <Button onClick={() => setState(LOADING_QUOTE)}>Start</Button>
-          </StartButton>
+          <Header>
+            <HighScore>
+              <p>High Score: {highScore}</p>
+            </HighScore>
+          </Header>
+          <Main>
+            <LargeTitle>
+              <H1>Trump, West or Swift?</H1>
+            </LargeTitle>
+            <StartButton>
+              <Button onClick={() => setState(LOADING_QUOTE)}>Start</Button>
+            </StartButton>
+          </Main>
+          <Footer></Footer>
         </Container>
       );
-    case LOADING_QUOTE || WAITING_FOR_ANSWER:
+    case LOADING_QUOTE:
       return (
         <Container>
-          <HighScore>
-            <p>High Score: {highScore}</p>
-          </HighScore>
-          <SmallTitle>
-            <H1>Trump, West or Swift?</H1>
-          </SmallTitle>
-          <Score>
-            <p>Score: {history.length || 0}</p>
-          </Score>
-          <Quote quote={quote} person={person} state={state} />
-          <Buttons
-            personList={[TRUMP, SWIFT, WEST]}
-            handleAnswer={handleAnswer}
-          />
+          <Header>
+            <HighScore>
+              <p>High Score: {highScore}</p>
+            </HighScore>
+            <SmallTitle>
+              <H1>Trump, West or Swift?</H1>
+            </SmallTitle>
+            <Score>
+              <p>Score: {history.length || 0}</p>
+            </Score>
+          </Header>
+        </Container>
+      );
+    case WAITING_FOR_ANSWER:
+      return (
+        <Container>
+          <Header>
+            <HighScore>
+              <p>High Score: {highScore}</p>
+            </HighScore>
+            <SmallTitle>
+              <H1>Trump, West or Swift?</H1>
+            </SmallTitle>
+            <Score>
+              <p>Score: {history.length || 0}</p>
+            </Score>
+          </Header>
+          <Main>
+            <Quote quote={quote} person={person} state={state} />
+            <Buttons
+              personList={[TRUMP, SWIFT, WEST]}
+              handleAnswer={handleAnswer}
+            />
+          </Main>
+          <Footer></Footer>
         </Container>
       );
     case REVEAL_ANSWER:
       return (
         <Container>
-          <HighScore>
-            <p>High Score: {highScore}</p>
-          </HighScore>
-          <SmallTitle>
-            <H1>Trump, West or Swift?</H1>
-          </SmallTitle>
-          <Quote quote={quote} person={person} state={state} />
-          <Score>
-            <p>{history[history.length - 1].answer ? 'correct' : 'false'}</p>
-          </Score>
+          <Header>
+            <HighScore>
+              <p>High Score: {highScore}</p>
+            </HighScore>
+            <SmallTitle>
+              <H1>Trump, West or Swift?</H1>
+            </SmallTitle>
+            <Score>
+              <p>Score: {history.length || 0}</p>
+            </Score>
+          </Header>
+          <Main>
+            <Score>
+              <p>{history[history.length - 1].answer ? 'correct' : 'false'}</p>
+            </Score>
+          </Main>
+          <Footer></Footer>
         </Container>
       );
     case GAME_OVER:
       return (
         <Container>
-          <HighScore>
-            <p>High Score: {highScore}</p>
-          </HighScore>
-          <SmallTitle>
-            <H1>Trump, West or Swift?</H1>
-          </SmallTitle>
-          <Score>
-            <p>game over</p>
-          </Score>
-          <Score>You scored: {history.length - 1}</Score>
-          <StartButton>
-            <Button
-              onClick={() => {
-                setHistory([]);
-                setState(IDLE);
-              }}
-            >
-              TRY AGAIN
-            </Button>
-          </StartButton>
+          <Header>
+            <HighScore>
+              <p>High Score: {highScore}</p>
+            </HighScore>
+            <SmallTitle>
+              <H1>Trump, West or Swift?</H1>
+            </SmallTitle>
+          </Header>
+          <Main>
+            <Score>
+              <p>game over</p>
+            </Score>
+            <Score>You scored: {history.length - 1}</Score>
+            <StartButton>
+              <Button
+                onClick={() => {
+                  setHistory([]);
+                  setState(IDLE);
+                }}
+              >
+                TRY AGAIN
+              </Button>
+            </StartButton>
+          </Main>
           <History>
             <ul>
               {history.map((round) => {
-                return <li key={round.quote}>{round.quote}</li>;
+                return <ListQuote round={round} />;
               })}
             </ul>
           </History>
@@ -225,9 +258,14 @@ function Game() {
     default:
       return (
         <Container>
-          <LargeTitle>
-            <H1>Trump, West or Swift?</H1>
-          </LargeTitle>
+          <Header>
+            <HighScore>
+              <p>High Score: {highScore}</p>
+            </HighScore>
+            <SmallTitle>
+              <H1>Trump, West or Swift?</H1>
+            </SmallTitle>
+          </Header>
         </Container>
       );
   }

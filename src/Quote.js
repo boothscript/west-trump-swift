@@ -21,18 +21,19 @@ const QuoteText = styled.p``;
 const Loading = styled.p``;
 
 export default function Quote({ quote, person, state }) {
+  console.log('in quote the state is ', state);
   if (state === WAITING_FOR_ANSWER || PROCESSING_ANSWER) {
     return (
       <Wrapper>
         <Person person={person}></Person>
-        <QuoteText>{quote}</QuoteText>
+        <QuoteText>{`"${quote}"` || '...'}</QuoteText>
       </Wrapper>
     );
   }
   if (state === LOADING_QUOTE) {
     return (
       <Wrapper>
-        <Loading>...</Loading>
+        <p>... loading ...</p>
       </Wrapper>
     );
   }

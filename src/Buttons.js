@@ -1,12 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { getImage } from './images';
+
 const Container = styled.div`
-  grid-column: 2 / span 1;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 const Button = styled.button`
   display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: max(15vw);
+  svg {
+    width: 100% !important ;
+    height: auto !important;
+  }
 `;
 
 export default function Buttons({ personList, handleAnswer }) {
@@ -15,7 +26,7 @@ export default function Buttons({ personList, handleAnswer }) {
       {personList.map((person) => {
         return (
           <Button onClick={() => handleAnswer(person)} key={person}>
-            {person}
+            {getImage(person)}
           </Button>
         );
       })}
